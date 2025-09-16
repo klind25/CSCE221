@@ -1,0 +1,29 @@
+#pragma once
+
+#include <unordered_map>
+
+#include "weighted-graph.hpp"
+#include "graph-types.h"
+
+template <typename T>
+void computeIndegrees(const WeightedGraph<T>& graph, std::unordered_map<value_type<T>, int>& indegrees) {
+    // TODO store the indegree for each vertex in the graph in the indegrees map
+    
+    for (const auto& [first, adj_list] : graph) {
+        indegrees[first] = 0; // Default
+
+        for (const auto& [second, weight] : adj_list) { 
+            if (indegrees.find(second) == indegrees.end()) { // If vertex is the end 
+            indegrees[second] = 0; // (doesn't point to anything, must be initialized separate)
+            }
+        }
+    }
+
+    for (const auto& [first, adj_list] : graph) {
+        for (const auto& [second, weight] : adj_list) {
+            indegrees[second]++;
+        }
+    }
+
+
+}
